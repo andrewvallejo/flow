@@ -1,15 +1,53 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Colors */
+  --color-active-icon: #f59d0e;
+  --color-background: #ffffff;
+  --color-border: #e1e1e1;
+  --color-default-chip-bg: #9da4b226;
+  --color-default-text: #677289;
+  --color-hover: rgba(157, 164, 178, 0.35);
+  --color-inactive-icon: #8c93a1;
+  --color-navbar: #f9fafb;
+  --color-primary: #2f72e2;
+
+  /* Spacing */
+  --space-chip-padding-x: 0.625rem;
+  --space-chip-padding-y: 0.25rem;
+  --space-icon-text-gap: 0.375rem;
+  --space-nav-chip-gap: 1.25rem;
+
+  /* Border Radius */
+  --radius-md: 8px;
+
+  /* Shadows */
+  --shadow-active: 0px 1px 1px rgba(0, 0, 0, 0.02),
+    0px 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-focus: 0px 0px 0px 1.5px rgba(47, 114, 226, 0.25),
+    0px 1px 1px rgba(0, 0, 0, 0.02), 0px 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-active-icon: var(--color-active-icon);
+  --color-background: var(--color-background);
+  --color-border: var(--color-border);
+  --color-default-chip-bg: var(--color-default-chip-bg);
+  --color-default-text: var(--color-default-text);
+  --color-hover: var(--color-hover);
+  --color-inactive-icon: var(--color-inactive-icon);
+  --color-navbar: var(--color-navbar);
+  --color-primary: var(--color-primary);
+
+  --space-chip-padding-x: var(--space-chip-padding-x);
+  --space-chip-padding-y: var(--space-chip-padding-y);
+  --space-icon-text-gap: var(--space-icon-text-gap);
+  --space-nav-chip-gap: var(--space-nav-chip-gap);
+
+  --radius-md: var(--radius-md);
+
+  --shadow-active: var(--shadow-active);
+  --shadow-focus: var(--shadow-focus);
 }
 
 @media (prefers-color-scheme: dark) {
