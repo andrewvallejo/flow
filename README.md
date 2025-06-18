@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <img src="/flow-logo.png" width="100" alt="Flow logo" />
+</p>
+
+<h1 align="center">Flow</h1>
+<p align="center"><em>Designed for flow — sleek, modern navigation for smooth form building.</em></p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+  <img src="https://img.shields.io/badge/Deployed-Vercel-000?style=for-the-badge&logo=vercel&logoColor=white" />
+</p>
+
+---
+
+## Features
+
+- Create new pages instantly at any position with a single click
+- Reorder pages via smooth drag-and-drop interaction
+- Highlight the active page for clear navigation context
+- Per-page context menu with rename, duplicate, and delete options (UI only)
+
+---
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies and start the development server:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# With pnpm (preferred)
+
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<details>
+  <summary><strong>Or use yarn or npm</strong></summary>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+  <br>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+  <pre>
+  <code>
+  # With yarn
+  yarn install
+  yarn dev
 
-## Learn More
+  # With npm
+  npm install
+  npm run dev
+  </code>
+  </pre>
 
-To learn more about Next.js, take a look at the following resources:
+</details>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Info
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Flow was created as part of a take-home assessment.
+It demonstrates interactive UI patterns without backend integration or persistent data.
+<sup>All functionality is handled client-side using in-memory state only.</sup>
