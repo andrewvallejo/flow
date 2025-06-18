@@ -2,15 +2,17 @@
 
 :root {
   /* Colors */
-  --color-active-icon: #f59d0e;
   --color-background: #ffffff;
-  --color-border: #e1e1e1;
-  --color-default-chip-bg: #9da4b226;
-  --color-default-text: #677289;
-  --color-hover: rgba(157, 164, 178, 0.35);
-  --color-inactive-icon: #8c93a1;
+  --color-button-border: #e1e1e1;
+  --color-button-hover: rgba(157, 164, 178, 0.35);
+  --color-button-inactive: #dfe2e7;
+  --color-chip-default: rgba(157, 164, 178, 0.15);
+  --color-icon-active: #f59d0e;
+  --color-icon-flag: #2f72e2;
+  --color-icon-inactive: #8c93a1;
   --color-navbar: #f9fafb;
-  --color-primary: #2f72e2;
+  --color-text-default: #1a1a1a;
+  --color-text-inactive: #677289;
 
   /* Spacing */
   --space-chip-padding-x: 0.625rem;
@@ -28,28 +30,6 @@
     0px 1px 1px rgba(0, 0, 0, 0.02), 0px 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-@theme inline {
-  --color-active-icon: var(--color-active-icon);
-  --color-background: var(--color-background);
-  --color-border: var(--color-border);
-  --color-default-chip-bg: var(--color-default-chip-bg);
-  --color-default-text: var(--color-default-text);
-  --color-hover: var(--color-hover);
-  --color-inactive-icon: var(--color-inactive-icon);
-  --color-navbar: var(--color-navbar);
-  --color-primary: var(--color-primary);
-
-  --space-chip-padding-x: var(--space-chip-padding-x);
-  --space-chip-padding-y: var(--space-chip-padding-y);
-  --space-icon-text-gap: var(--space-icon-text-gap);
-  --space-nav-chip-gap: var(--space-nav-chip-gap);
-
-  --radius-md: var(--radius-md);
-
-  --shadow-active: var(--shadow-active);
-  --shadow-focus: var(--shadow-focus);
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -59,6 +39,9 @@
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-default-text);
+  font-weight: 500;
+  /* Install font */
+  font-family: 'Inter', sans-serif;
+  font-size: text-sm;
 }
