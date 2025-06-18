@@ -1,4 +1,4 @@
-export const colors = {
+export const iconColors = {
   active: 'var(--color-icon-active)',
   inactive: 'var(--color-icon-inactive)',
   settings: 'var(--color-button-border)',
