@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="/flow-logo.png" width="100" alt="Flow logo" />
+  <img src="public/flow-logo.png" width="100" alt="Flow logo" />
 </p>
 
 <h1 align="center">Flow</h1>
@@ -11,6 +11,14 @@
   <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
   <img src="https://img.shields.io/badge/Deployed-Vercel-000?style=for-the-badge&logo=vercel&logoColor=white" />
 </p>
+
+
+<p align="center">
+  <sub>Live preview</sub>
+  <br />
+  <a href="https://flow-av.vercel.app" target="_blank"><code>flow-av.vercel.app</code></a>
+</p>
+
 
 ---
 
