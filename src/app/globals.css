@@ -9,8 +9,9 @@
     --color-button-secondary: #ffffff;
     --color-border: #e1e1e1;
     --color-button-hover: rgba(157, 164, 178, 0.35);
-    --color-chip-default: rgba(157, 164, 178, 0.15);
+    --color-chip-default: #e5e6e9;
     --color-icon-active: #f59d0e;
+    --color-chip-focus: rgba(47, 114, 226, 0.25);
     --color-icon-flag: #2f72e2;
     --color-icon-menu: #9da4b2;
     --color-icon-delete: #ef494f;
