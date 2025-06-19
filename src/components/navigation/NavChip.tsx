@@ -48,7 +48,7 @@ export default function NavChip({
         <button
             type="button"
             onClick={handleChipClick}
-            className={`group relative z-10 flex cursor-pointer items-center rounded-lg border border-[var(--color-border)] px-[0.25rem] py-[.4rem] transition-all duration-200 ease-in-out focus:shadow-[var(--shadow-focus)] focus:ring-2 focus:ring-[rgba(47,114,226,0.25)] focus:outline-none ${isActive ? 'border-[var(--color-icon-active)] bg-white shadow-[var(--shadow-active)]' : 'bg-[var(--color-button-primary)] hover:bg-[var(--color-button-hover)]'} `}
+            className={`group relative z-10 flex cursor-pointer items-center rounded-lg border border-[var(--color-border)] px-[0.25rem] py-[.4rem] transition-all duration-200 ease-in-out focus:shadow-[var(--shadow-focus)] focus:ring-2 focus:ring-[rgba(47,114,226,0.25)] focus:outline-none ${isActive ? 'border-[var(--color-icon-active)] shadow-[var(--shadow-active)]' : 'bg-[var(--color-button-primary)] hover:bg-[var(--color-button-hover)]'} `}
         >
             <IconLabel label={label}>{children}</IconLabel>
             {isSelected && <SettingsMenu />}
@@ -58,11 +58,13 @@ export default function NavChip({
                     tabIndex={0}
                     onClick={toggleMenu}
                     className="flex"
-                    onKeyPress={(e) => {
+                    onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') toggleMenu();
                     }}
                 >
-                    <span className="z-10 ml-1 opacity-0 transition-opacity duration-100 ease-in-out group-hover:opacity-100">
+                    <span
+                        className={`z-10 ml-1 transition-opacity duration-100 ease-in-out ${isSelected ? 'opacity-100' : 'opacity-0 group-focus-within:opacity-100 group-hover:opacity-100'} `}
+                    >
                         <MenuIcon />
                     </span>
                 </span>
