@@ -5,4 +5,4 @@ export const iconColors = {
     inactive: 'var(--color-icon-inactive)',
     plus: 'var(--color-text-default)',
     settings: 'var(--color-icon-menu)',
-}
+};

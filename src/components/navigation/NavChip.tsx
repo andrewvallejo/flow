@@ -11,6 +11,10 @@ interface NavChipProps {
     chipId?: string;
     /** Text label displayed on the chip */
     label?: string;
+    /** Text label displayed on the chip */
+    variant?: 'primary' | 'secondary';
+    /** A callback handler for creating a new chip */
+    onClick?: (position: number) => void;
     /** Content to be rendered inside the chip */
     children: React.ReactNode;
 }
@@ -18,17 +22,22 @@ interface NavChipProps {
 export default function NavChip({
     chipId = '',
     label = '',
+    variant = 'primary',
+    onClick,
     children,
 }: NavChipProps) {
+    const [isSelected, setIsSelected] = useState(false);
+
+    const [menuFocused, setMenuFocused] = useState(false);
+
     const searchParams = useSearchParams();
     const router = useRouter();
 
     const activeChip = searchParams.get('chip');
     const isActive = (activeChip ?? '1') === chipId;
 
-    const [isSelected, setIsSelected] = useState(false);
-
     const handleChipClick = () => {
+        onClick?.(Number(chipId));
         const params = new URLSearchParams(searchParams.toString());
         params.set('chip', chipId);
         router.push(`?${params.toString()}`);
@@ -47,28 +56,41 @@ export default function NavChip({
     return (
         <button
             type="button"
+            tabIndex={0}
             onClick={handleChipClick}
-            className={`group relative z-10 flex cursor-pointer items-center rounded-lg border border-[var(--color-border)] px-[0.25rem] py-[.4rem] transition-all duration-200 ease-in-out focus:shadow-[var(--shadow-focus)] focus:ring-2 focus:ring-[rgba(47,114,226,0.25)] focus:outline-none ${isActive ? 'border-[var(--color-icon-active)] shadow-[var(--shadow-active)]' : 'bg-[var(--color-button-primary)] hover:bg-[var(--color-button-hover)]'} `}
+            className={`relative z-10 flex flex-none cursor-pointer flex-wrap content-start items-center justify-stretch rounded-lg border border-[var(--color-border)] ${variant === 'primary' ? 'bg-[var(--color-button-primary)]' : 'bg-[var(--color-button-secondary)]'} px-[0.25rem] py-[.4rem] transition-all duration-100 ease-in focus:shadow-[var(--shadow-focus)] focus:ring-[var(--color-icon-flag)] focus:outline-[.5px] ${
+                isActive
+                    ? 'border-none bg-[var(--color-button-secondary)] shadow-[var(--shadow-active)]'
+                    : 'text-[var(--color-text-inactive)] hover:bg-[var(--color-button-hover)]'
+            } `}
         >
             <IconLabel label={label}>{children}</IconLabel>
-            {isSelected && <SettingsMenu />}
-            {isActive && (
+            {isActive && variant !== 'secondary' && (
                 <span
                     role="button"
-                    tabIndex={0}
                     onClick={toggleMenu}
-                    className="flex"
+                    className="focus:outline-none"
+                    onFocus={() => setMenuFocused(true)}
+                    onBlur={() => setMenuFocused(false)}
                     onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') toggleMenu();
+                        if (e.key === 'Enter') toggleMenu();
                     }}
+                    tabIndex={0}
                 >
-                    <span
-                        className={`z-10 ml-1 transition-opacity duration-100 ease-in-out ${isSelected ? 'opacity-100' : 'opacity-0 group-focus-within:opacity-100 group-hover:opacity-100'} `}
-                    >
-                        <MenuIcon />
+                    <span>
+                        <MenuIcon
+                            color={
+                                isSelected
+                                    ? 'var(--color-icon-flag)'
+                                    : menuFocused
+                                      ? 'var(--color-chip-focus)'
+                                      : undefined
+                            }
+                        />
                     </span>
                 </span>
             )}
+            {isSelected && <SettingsMenu />}
         </button>
     );
 }

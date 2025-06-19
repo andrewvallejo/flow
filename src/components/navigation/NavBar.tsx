@@ -3,36 +3,65 @@
 import DashedDivider from './DashedDivider';
 import NavChip from './NavChip';
 import NavNewPage from './NavNewPage';
-import { NewNavChip, useNavChip } from '@/hooks/useNavChip';
+import { NavChipConfig } from '@/types/navChip';
+import { navChipsConfig } from '@/utils/navChipsConfig';
+import { PlusIcon } from '../icons/PlusIcon';
+import { useNavChip } from '@/hooks/useNavChip';
+import { useState } from 'react';
 
 export default function NavBar() {
-    const navItems: NewNavChip[] = [
-        { label: 'Info', icon: 'info', isActive: true, variant: 'secondary' },
-        { label: 'Details', icon: 'file', isActive: false },
-        { label: 'Other', icon: 'file', isActive: false },
-        { label: 'Ending', icon: 'checkmark', isActive: false },
-        { label: 'Add Page', icon: 'plus', isActive: false },
-    ];
+    const [navItems, setNavItems] = useState<NavChipConfig[]>(navChipsConfig);
 
     const navChips = useNavChip(navItems);
 
+    const updateNavItems = (position: number) => {
+        setNavItems((prev) => {
+            const updatedNavItemConfig = [...prev];
+            updatedNavItemConfig.splice(position, 0, {
+                type: 'file',
+                label: 'New Page',
+                variant: 'new',
+            } as NavChipConfig);
+            return updatedNavItemConfig;
+        });
+    };
+
     return (
-        <nav className="flex h-20 w-full bg-[var(--color-navbar-background)] px-4">
-            <div className="relative flex w-fit items-center">
+        <nav className="flex h-20 w-full bg-[var(--color-navbar-background)]">
+            <div className="relative flex items-center px-4">
                 <DashedDivider />
-                {navChips.map((item, index) =>
-                    !['primary', 'secondary'].includes(item?.variant || '') ? (
-                        <NavNewPage key={index} />
+                {navChips.map((item, index) => {
+                    return !['primary', 'secondary'].includes(
+                        item?.variant || ''
+                    ) ? (
+                        <NavNewPage
+                            key={index}
+                            position={index}
+                            onClick={updateNavItems}
+                        />
                     ) : (
                         <NavChip
                             key={index}
                             chipId={item.chipId}
                             label={item?.label}
+                            variant={
+                                item?.variant === 'secondary'
+                                    ? 'secondary'
+                                    : 'primary'
+                            }
                         >
                             {item.component}
                         </NavChip>
-                    )
-                )}
+                    );
+                })}
+                <NavChip
+                    onClick={updateNavItems}
+                    chipId={(navChips.length / 2 + 1).toString()}
+                    label="Add Page"
+                    variant="secondary"
+                >
+                    <PlusIcon />
+                </NavChip>
             </div>
         </nav>
     );
