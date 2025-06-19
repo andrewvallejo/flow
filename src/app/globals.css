@@ -2,16 +2,16 @@
 
 :root {
   /* Colors */
-  --color-background: #162442;
+  --color-main-background: #162442;
+  --color-navbar-background: #f9fafb;
+  --color-button-primary: #dfe2e7;
   --color-button-secondary: #ffffff;
   --color-button-border: #e1e1e1;
   --color-button-hover: rgba(157, 164, 178, 0.35);
-  --color-button-primary: #dfe2e7;
   --color-chip-default: rgba(157, 164, 178, 0.15);
   --color-icon-active: #f59d0e;
   --color-icon-flag: #2f72e2;
   --color-icon-inactive: #8c93a1;
-  --color-navbar: #f9fafb;
   --color-text-default: #1a1a1a;
   --color-text-inactive: #677289;
 
@@ -39,7 +39,7 @@
 } */
 
 body {
-  background: var(--color-background);
+  background: var(--color-main-background);
   color: var(--color-text-default);
   font-weight: 500;
   /* Install font */

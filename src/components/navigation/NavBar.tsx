@@ -21,18 +21,20 @@ export default function NavBar() {
   const navChips = useNavChip(navItems);
 
   return (
-    <nav className="flex h-20 w-full px-4 bg-[var(--color-navbar)]">
-      <div className="relative flex items-center  w-fit">
+    <nav className="flex h-20 w-full px-4 bg-[var(--color-navbar-background)]">
+      <div className="relative flex items-center w-fit">
         <DashedDivider />
         {navChips.map((item, index) => {
-          if (
-            !item.variant ||
-            !['primary', 'secondary'].includes(item.variant)
-          ) {
+          if (!['primary', 'secondary'].includes(item?.variant || '')) {
             return <NavNewPageChip key={index} />;
           }
           return (
-            <NavChip key={index} label={item?.label} isActive={item.isActive}>
+            <NavChip
+              key={index}
+              label={item?.label}
+              variant={item?.variant}
+              isActive={item.isActive}
+            >
               {item.component}
             </NavChip>
           );
