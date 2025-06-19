@@ -24,7 +24,7 @@ export default function NavChip({
     <button
       type="button"
       onClick={onClick}
-      className={`flex items-center gap-x-[.25rem] rounded-lg px-[0.25rem] py-[.4rem] z-10 border border-[var(--color-button-border)] ${bg}`}
+      className={`flex items-center rounded-lg px-[0.25rem] py-[.4rem] z-10 border border-[var(--color-button-border)] ${bg}`}
     >
       <IconLabel label={label} isActive={isActive}>
         {children}
