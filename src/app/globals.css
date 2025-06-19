@@ -2,10 +2,11 @@
 
 :root {
   /* Colors */
-  --color-background: #ffffff;
+  --color-background: #162442;
+  --color-button-secondary: #ffffff;
   --color-button-border: #e1e1e1;
   --color-button-hover: rgba(157, 164, 178, 0.35);
-  --color-button-inactive: #dfe2e7;
+  --color-button-primary: #dfe2e7;
   --color-chip-default: rgba(157, 164, 178, 0.15);
   --color-icon-active: #f59d0e;
   --color-icon-flag: #2f72e2;
@@ -30,16 +31,16 @@
     0px 1px 1px rgba(0, 0, 0, 0.02), 0px 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
-  background: var(--background);
-  color: var(--color-default-text);
+  background: var(--color-background);
+  color: var(--color-text-default);
   font-weight: 500;
   /* Install font */
   font-family: 'Inter', sans-serif;
