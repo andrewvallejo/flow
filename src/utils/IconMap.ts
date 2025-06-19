@@ -12,13 +12,13 @@ export type IconMap = Record<IconType, IconName>;
  *   iconNames['checkmark'] -> 'Checkmark' -> Icons.Checkmark
  */
 export const iconNames: IconMap = {
-  checkmark: 'Checkmark',
-  copy: 'Copy',
-  duplicate: 'Duplicate',
-  file: 'File',
-  flag: 'Flag',
-  info: 'Info',
-  menu: 'Menu',
-  plus: 'Plus',
-  rename: 'Rename',
+    checkmark: 'Checkmark',
+    copy: 'Copy',
+    duplicate: 'Duplicate',
+    drag: 'Drag',
+    file: 'File',
+    flag: 'Flag',
+    info: 'Info',
+    plus: 'Plus',
+    rename: 'Rename',
 };

@@ -6,7 +6,6 @@ import { FlagIcon } from '../icons/FlagIcon';
 import { RenameIcon } from '../icons/RenameIcon';
 
 export function SettingsMenu() {
-    // TODO: Can make this DRYer
     return (
         <div className="absolute bottom-12 -left-0 z-50 mb-2 w-[11rem] rounded-lg border-[0.5px] border-[var(--color-border)] bg-[var(--color-background-secondary)] shadow-lg">
             <header className="flex border-b-[0.5px] border-[var(--color-border)] px-4 py-2 text-sm font-semibold">

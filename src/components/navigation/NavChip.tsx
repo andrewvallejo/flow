@@ -1,9 +1,9 @@
 'use client';
 
 import IconLabel from '@/components/IconLabel';
-import { MenuIcon } from '../icons/MenuIcon';
+import { DragIcon } from '../icons/DragIcon';
 import { SettingsMenu } from '../settings/SettingsMenu';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 interface NavChipProps {
@@ -13,6 +13,10 @@ interface NavChipProps {
     label?: string;
     /** Text label displayed on the chip */
     variant?: 'primary' | 'secondary';
+    /** Event listeners for drag functionality */
+    dragListeners?: React.HTMLAttributes<HTMLElement>;
+    /** Indicates whether the chip is currently being dragged */
+    isDragging?: boolean;
     /** A callback handler for creating a new chip */
     onClick?: (position: number) => void;
     /** Content to be rendered inside the chip */
@@ -23,12 +27,15 @@ export default function NavChip({
     chipId = '',
     label = '',
     variant = 'primary',
+    dragListeners,
+    isDragging,
     onClick,
     children,
 }: NavChipProps) {
-    const [isSelected, setIsSelected] = useState(false);
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
 
-    const [menuFocused, setMenuFocused] = useState(false);
+    const chipRef = useRef<HTMLButtonElement>(null);
 
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -37,60 +44,79 @@ export default function NavChip({
     const isActive = (activeChip ?? '1') === chipId;
 
     const handleChipClick = () => {
-        onClick?.(Number(chipId));
-        const params = new URLSearchParams(searchParams.toString());
-        params.set('chip', chipId);
-        router.push(`?${params.toString()}`);
-    };
-
-    const toggleMenu = () => {
-        setIsSelected((prev) => !prev);
+        if (!isActive) {
+            onClick?.(Number(chipId));
+            const params = new URLSearchParams(searchParams.toString());
+            params.set('chip', chipId);
+            router.push(`?${params.toString()}`);
+        } else {
+            setIsSettingsOpen((prev) => !prev); // toggle settings if already active
+        }
     };
 
     useEffect(() => {
+        // close settings if chip loses active status
         if (!isActive) {
-            setIsSelected(false);
+            setIsSettingsOpen(false);
         }
     }, [isActive]);
 
+    // Optional: click outside to close menu
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (!chipRef.current?.contains(e.target as Node)) {
+                setIsSettingsOpen(false);
+            }
+        };
+
+        if (isSettingsOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+        return () =>
+            document.removeEventListener('mousedown', handleClickOutside);
+    }, [isSettingsOpen]);
+
     return (
         <button
+            ref={chipRef}
             type="button"
-            tabIndex={0}
             onClick={handleChipClick}
-            className={`relative z-10 flex flex-none cursor-pointer flex-wrap content-start items-center justify-stretch rounded-lg border border-[var(--color-border)] ${variant === 'primary' ? 'bg-[var(--color-button-primary)]' : 'bg-[var(--color-button-secondary)]'} px-[0.25rem] py-[.4rem] transition-all duration-100 ease-in focus:shadow-[var(--shadow-focus)] focus:ring-[var(--color-icon-flag)] focus:outline-[.5px] ${
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className={`relative z-10 flex flex-none cursor-pointer flex-wrap content-start items-center justify-stretch rounded-lg border border-[var(--color-border)] ${
+                variant === 'primary'
+                    ? 'bg-[var(--color-button-primary)]'
+                    : 'bg-[var(--color-button-secondary)]'
+            } px-[0.25rem] py-[.4rem] transition-all duration-100 ease-in focus:shadow-[var(--shadow-focus)] focus:ring-[var(--color-icon-flag)] focus:outline-[.5px] ${
                 isActive
                     ? 'border-none bg-[var(--color-button-secondary)] shadow-[var(--shadow-active)]'
                     : 'text-[var(--color-text-inactive)] hover:bg-[var(--color-button-hover)]'
-            } `}
+            }`}
         >
             <IconLabel label={label}>{children}</IconLabel>
+
             {isActive && variant !== 'secondary' && (
                 <span
+                    {...dragListeners}
+                    className="ml-1 cursor-grab focus:outline-none"
                     role="button"
-                    onClick={toggleMenu}
-                    className="focus:outline-none"
-                    onFocus={() => setMenuFocused(true)}
-                    onBlur={() => setMenuFocused(false)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter') toggleMenu();
-                    }}
-                    tabIndex={0}
+                    tabIndex={-1}
                 >
-                    <span>
-                        <MenuIcon
-                            color={
-                                isSelected
-                                    ? 'var(--color-icon-flag)'
-                                    : menuFocused
-                                      ? 'var(--color-chip-focus)'
-                                      : undefined
-                            }
-                        />
-                    </span>
+                    <DragIcon
+                        color={
+                            isSettingsOpen
+                                ? 'var(--color-icon-flag)'
+                                : isHovered
+                                  ? 'var(--color-chip-focus)'
+                                  : isDragging
+                                    ? 'var(--color-icon-active)'
+                                    : ''
+                        }
+                    />
                 </span>
             )}
-            {isSelected && <SettingsMenu />}
+
+            {isSettingsOpen && <SettingsMenu />}
         </button>
     );
 }
