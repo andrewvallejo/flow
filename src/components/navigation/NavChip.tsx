@@ -53,11 +53,19 @@ export default function NavChip({
             <IconLabel label={label}>{children}</IconLabel>
             {isSelected && <SettingsMenu />}
             {isActive && (
-                <button type="button" onClick={toggleMenu} className="flex">
+                <span
+                    role="button"
+                    tabIndex={0}
+                    onClick={toggleMenu}
+                    className="flex"
+                    onKeyPress={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') toggleMenu();
+                    }}
+                >
                     <span className="z-10 ml-1 opacity-0 transition-opacity duration-100 ease-in-out group-hover:opacity-100">
                         <MenuIcon />
                     </span>
-                </button>
+                </span>
             )}
         </button>
     );
