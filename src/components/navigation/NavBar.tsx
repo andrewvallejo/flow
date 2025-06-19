@@ -3,15 +3,16 @@
 import DashedDivider from './DashedDivider';
 import NavChip from './NavChip';
 import NavNewPage from './NavNewPage';
-import SortableChipWrapper from './dnd/SortableChipWrapper';
+import SortableChipWrapper from './SortableChipWrapper';
 import {
     arrayMove,
+    horizontalListSortingStrategy,
     SortableContext,
-    verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import {
     closestCenter,
     DndContext,
+    MeasuringStrategy,
     PointerSensor,
     useSensor,
     useSensors,
@@ -20,14 +21,21 @@ import { NavChipConfig } from '@/types/navChip';
 import { navChipsConfig } from '@/utils/navChipsConfig';
 import { PlusIcon } from '../icons/PlusIcon';
 import { useNavChip } from '@/hooks/useNavChip';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
+SortableChipWrapper;
 
 export default function NavBar() {
     const [navItems, setNavItems] = useState<NavChipConfig[]>(navChipsConfig);
 
     const navChips = useNavChip(navItems);
-
     const sensors = useSensors(useSensor(PointerSensor));
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    const draggableChips = navChips
+        .filter((chip) => chip.variant !== 'new')
+        .map((c) => c.chipId ?? '');
 
     const updateNavItems = (position: number) => {
         setNavItems((prev) => {
@@ -40,7 +48,6 @@ export default function NavBar() {
             return updateNavItems;
         });
     };
-
     const handleDragEnd = ({ active, over }: any) => {
         if (!over || active.id === over.id) return;
 
@@ -53,10 +60,12 @@ export default function NavBar() {
 
         if (oldIndex !== -1 && newIndex !== -1) {
             setNavItems((prev) => arrayMove(prev, oldIndex, newIndex));
+
+            const params = new URLSearchParams(searchParams.toString());
+            params.set('chip', (newIndex + 1).toString());
+            router.push(`?${params.toString()}`);
         }
     };
-
-    const draggableChips = navChips.filter((chip) => chip.variant !== 'new');
 
     return (
         <nav className="flex h-20 w-full bg-[var(--color-navbar-background)]">
@@ -66,10 +75,15 @@ export default function NavBar() {
                     sensors={sensors}
                     collisionDetection={closestCenter}
                     onDragEnd={handleDragEnd}
+                    measuring={{
+                        droppable: {
+                            strategy: MeasuringStrategy.Always,
+                        },
+                    }}
                 >
                     <SortableContext
-                        items={draggableChips.map((c) => c.chipId ?? '')}
-                        strategy={verticalListSortingStrategy}
+                        items={draggableChips}
+                        strategy={horizontalListSortingStrategy}
                     >
                         {navChips.map((item, index) => {
                             if (item.variant === 'new') {
@@ -81,7 +95,6 @@ export default function NavBar() {
                                     />
                                 );
                             }
-
                             return (
                                 <SortableChipWrapper
                                     key={item.chipId}
