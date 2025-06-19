@@ -17,6 +17,7 @@ import {
     useSensor,
     useSensors,
 } from '@dnd-kit/core';
+import type { DragEndEvent } from '@dnd-kit/core';
 import { NavChipConfig } from '@/types/navChip';
 import { navChipsConfig } from '@/utils/navChipsConfig';
 import { PlusIcon } from '../icons/PlusIcon';
@@ -48,12 +49,13 @@ export default function NavBar() {
             return updateNavItems;
         });
     };
-    const handleDragEnd = ({ active, over }: any) => {
+
+    const handleDragEnd = ({ active, over }: DragEndEvent) => {
         if (!over || active.id === over.id) return;
 
         const ids = navChips
-            .map((c) => c.variant !== 'new' && c.chipId)
-            .filter(Boolean);
+            .filter((c) => c.variant !== 'new')
+            .map((c) => c.chipId ?? '');
 
         const oldIndex = ids.findIndex((id) => id === active.id);
         const newIndex = ids.findIndex((id) => id === over.id);

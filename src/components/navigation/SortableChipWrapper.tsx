@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { CSS } from '@dnd-kit/utilities';
+import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 import { useSortable } from '@dnd-kit/sortable';
 
 export default function SortableChipWrapper({
@@ -11,7 +12,10 @@ export default function SortableChipWrapper({
     /** The chip Id */
     id: string;
     /** The chip component that will be rendered inside the sortable wrapper */
-    children: React.ReactElement<{ dragListeners?: any; isDragging?: boolean }>;
+    children: React.ReactElement<{
+        dragListeners?: SyntheticListenerMap;
+        isDragging?: boolean;
+    }>;
 }) {
     const {
         attributes,
