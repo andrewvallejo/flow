@@ -1,10 +1,8 @@
 export default function IconLabel({
     label,
-    isActive = false,
     children,
 }: {
     label: string;
-    isActive?: boolean;
     children: React.ReactNode;
 }) {
     const deleteClass =

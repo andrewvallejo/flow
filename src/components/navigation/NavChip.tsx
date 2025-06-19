@@ -50,9 +50,7 @@ export default function NavChip({
             onClick={handleChipClick}
             className={`group relative z-10 flex cursor-pointer items-center rounded-lg border border-[var(--color-border)] px-[0.25rem] py-[.4rem] transition-all duration-200 ease-in-out focus:shadow-[var(--shadow-focus)] focus:ring-2 focus:ring-[rgba(47,114,226,0.25)] focus:outline-none ${isActive ? 'border-[var(--color-icon-active)] bg-white shadow-[var(--shadow-active)]' : 'bg-[var(--color-button-primary)] hover:bg-[var(--color-button-hover)]'} `}
         >
-            <IconLabel label={label} isActive={isActive}>
-                {children}
-            </IconLabel>
+            <IconLabel label={label}>{children}</IconLabel>
             {isSelected && <SettingsMenu />}
             {isActive && (
                 <button type="button" onClick={toggleMenu} className="flex">
