@@ -3,17 +3,10 @@
 import DashedDivider from './DashedDivider';
 import NavChip from './NavChip';
 import NavNewPage from './NavNewPage';
-import { NewNavChip, useNavChip } from '@/hooks/useNavChip';
+import { navItems } from '@/utils/navItems';
+import { useNavChip } from '@/hooks/useNavChip';
 
 export default function NavBar() {
-    const navItems: NewNavChip[] = [
-        { label: 'Info', icon: 'info', isActive: true, variant: 'secondary' },
-        { label: 'Details', icon: 'file', isActive: false },
-        { label: 'Other', icon: 'file', isActive: false },
-        { label: 'Ending', icon: 'checkmark', isActive: false },
-        { label: 'Add Page', icon: 'plus', isActive: false },
-    ];
-
     const navChips = useNavChip(navItems);
 
     return (
@@ -28,6 +21,11 @@ export default function NavBar() {
                             key={index}
                             chipId={item.chipId}
                             label={item?.label}
+                            variant={
+                                item?.variant === 'secondary'
+                                    ? 'secondary'
+                                    : 'primary'
+                            }
                         >
                             {item.component}
                         </NavChip>

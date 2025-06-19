@@ -3,6 +3,7 @@
 import { IconMap, iconNames } from '@/utils/IconMap';
 import { Icons } from '@/components/icons';
 import { IconType } from '@/types/icon';
+import { useSearchParams } from 'next/navigation';
 
 export interface NewNavChip {
     chipId?: string;
@@ -23,17 +24,24 @@ export interface NewNavChip {
  * A new page "+" button chip (with variant 'new') is inserted between each chip
  * */
 export const useNavChip = (chips: NewNavChip[]): NewNavChip[] => {
+    const searchParams = useSearchParams();
+
+    const activeChip = searchParams.get('chip') ?? 1;
+
     return chips.flatMap(({ icon, isActive, variant, label }, index) => {
         const iconKey = iconNames[icon as keyof IconMap];
         const IconComponent = Icons[iconKey] ?? Icons['File'];
-        const chipColor = isActive ? 'var(--color-icon-active)' : '';
         const isLastChip = index === chips.length - 1;
+        const isActiveChip = Number(activeChip) === index + 1;
+        const chipColor =
+            isActiveChip && !isLastChip ? 'var(--color-icon-active)' : '';
 
         const navChip: NewNavChip = {
             chipId: (index + 1).toString(),
             label,
-            variant: variant ?? 'primary',
-            isActive,
+            // TODO: Change this to do isLastChip instead of variant
+            variant: isLastChip ? 'secondary' : 'primary',
+            isActive: isActiveChip,
             component: <IconComponent color={chipColor} />,
         };
 
