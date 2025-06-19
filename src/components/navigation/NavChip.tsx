@@ -1,7 +1,7 @@
 'use client';
 
 import IconLabel from '@/components/IconLabel';
-import { MenuIcon } from '../icons/MenuIcon';
+import { DragIcon } from '../icons/DragIcon';
 import { SettingsMenu } from '../settings/SettingsMenu';
 import { useEffect, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -102,7 +102,7 @@ export default function NavChip({
                     role="button"
                     tabIndex={-1}
                 >
-                    <MenuIcon
+                    <DragIcon
                         color={
                             isSettingsOpen
                                 ? 'var(--color-icon-flag)'

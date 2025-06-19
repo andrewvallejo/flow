@@ -8,9 +8,9 @@ import { Icons } from '@/components/icons';
  * @property [color] - The color of the icon
  */
 export interface IconProps {
-  width?: number;
-  height?: number;
-  color?: string;
+    width?: number;
+    height?: number;
+    color?: string;
 }
 
 /**
@@ -23,12 +23,12 @@ export type IconName = keyof typeof Icons;
 
 /** A union of all available icons */
 export type IconType =
-  | 'checkmark'
-  | 'copy'
-  | 'duplicate'
-  | 'file'
-  | 'flag'
-  | 'info'
-  | 'menu'
-  | 'plus'
-  | 'rename';
+    | 'checkmark'
+    | 'copy'
+    | 'duplicate'
+    | 'drag'
+    | 'file'
+    | 'flag'
+    | 'info'
+    | 'plus'
+    | 'rename';

@@ -1,13 +1,13 @@
-import { CheckmarkIcon } from './CheckmarkIcon'
-import { CopyIcon } from './CopyIcon'
-import { DeleteIcon } from './DeleteIcon'
-import { DuplicateIcon } from './DuplicateIcon'
-import { FileIcon } from './FileIcon'
-import { FlagIcon } from './FlagIcon'
-import { InfoIcon } from './InfoIcon'
-import { MenuIcon } from './MenuIcon'
-import { PlusIcon } from './PlusIcon'
-import { RenameIcon } from './RenameIcon'
+import { CheckmarkIcon } from './CheckmarkIcon';
+import { CopyIcon } from './CopyIcon';
+import { DeleteIcon } from './DeleteIcon';
+import { DragIcon } from './DragIcon';
+import { DuplicateIcon } from './DuplicateIcon';
+import { FileIcon } from './FileIcon';
+import { FlagIcon } from './FlagIcon';
+import { InfoIcon } from './InfoIcon';
+import { PlusIcon } from './PlusIcon';
+import { RenameIcon } from './RenameIcon';
 
 export const Icons = {
     Checkmark: CheckmarkIcon,
@@ -16,8 +16,8 @@ export const Icons = {
     File: FileIcon,
     Flag: FlagIcon,
     Info: InfoIcon,
-    Menu: MenuIcon,
+    Drag: DragIcon,
     Plus: PlusIcon,
     Rename: RenameIcon,
     Delete: DeleteIcon,
-}
+};

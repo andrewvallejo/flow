@@ -1,7 +1,7 @@
 import { iconColors } from '@/utils/iconColors';
 import { IconProps } from '@/types/icon';
 
-export function MenuIcon({ width = 17, height = 17, color }: IconProps) {
+export function DragIcon({ width = 17, height = 17, color }: IconProps) {
     return (
         <svg
             width={width}
