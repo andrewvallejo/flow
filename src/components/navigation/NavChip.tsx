@@ -1,30 +1,30 @@
-import IconLabel from '@/components/IconLabel';
+import IconLabel from "@/components/IconLabel";
 
 interface NavChipProps {
   label?: string;
   isActive?: boolean;
-  variant?: 'primary' | 'secondary' | 'new';
+  variant?: "primary" | "secondary" | "new";
   children: React.ReactNode;
   onClick?: () => void;
 }
 
 export default function NavChip({
-  label = '',
+  label = "",
   isActive = false,
-  variant = 'primary',
+  variant = "primary",
   children,
   onClick,
 }: NavChipProps) {
   const bg =
-    variant === 'secondary'
-      ? 'bg-[var(--color-button-secondary)]'
-      : 'bg-[var(--color-button-primary)]';
+    variant === "secondary"
+      ? "bg-[var(--color-button-secondary)]"
+      : "bg-[var(--color-button-primary)]";
 
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`flex items-center rounded-lg px-[0.25rem] py-[.4rem] z-10 border border-[var(--color-button-border)] ${bg}`}
+      className={`z-10 flex items-center rounded-lg border border-[var(--color-button-border)] px-[0.25rem] py-[.4rem] ${bg}`}
     >
       <IconLabel label={label} isActive={isActive}>
         {children}
