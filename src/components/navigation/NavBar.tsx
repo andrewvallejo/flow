@@ -24,7 +24,6 @@ import { PlusIcon } from '../icons/PlusIcon';
 import { useNavChip } from '@/hooks/useNavChip';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-SortableChipWrapper;
 
 export default function NavBar() {
     const [navItems, setNavItems] = useState<NavChipConfig[]>(navChipsConfig);
