@@ -3,8 +3,8 @@ import { Suspense } from 'react';
 
 export default function Home() {
     return (
-        <div className="flex min-h-screen flex-col">
-            <main className="h-full w-full flex-1" />
+        <div className="flex min-h-screen flex-col-reverse">
+            <main />
             <Suspense fallback={null}>
                 <NavBar />
             </Suspense>
