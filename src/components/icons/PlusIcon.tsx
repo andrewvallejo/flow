@@ -1,7 +1,7 @@
-import { Icon } from '@/types/icon';
 import { iconColors } from '@/utils/iconColors';
+import { IconProps } from '@/types/icon';
 
-export function PlusIcon({ width = 18, height = 18, color }: Icon) {
+export function PlusIcon({ width = 18, height = 18, color }: IconProps) {
   return (
     <svg
       width={width}

@@ -1,7 +1,7 @@
-import { Icon } from '@/types/icon';
 import { iconColors } from '@/utils/iconColors';
+import { IconProps } from '@/types/icon';
 
-export function DuplicateIcon({ width = 17, height = 16, color }: Icon) {
+export function DuplicateIcon({ width = 17, height = 16, color }: IconProps) {
   return (
     <svg
       width={width}

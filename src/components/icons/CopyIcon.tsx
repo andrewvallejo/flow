@@ -1,7 +1,7 @@
-import { Icon } from '@/types/icon';
 import { iconColors } from '@/utils/iconColors';
+import { IconProps } from '@/types/icon';
 
-export function CopyIcon({ width = 20, height = 20, color }: Icon) {
+export function CopyIcon({ width = 20, height = 20, color }: IconProps) {
   return (
     <svg
       width={width}
