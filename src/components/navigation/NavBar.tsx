@@ -3,13 +3,14 @@
 import DashedDivider from './DashedDivider';
 import NavChip from './NavChip';
 import NavNewPage from './NavNewPage';
+import { NavChipConfig } from '@/types/navChip';
 import { navChipsConfig } from '@/utils/navChipsConfig';
-import { NewNavChip, useNavChip } from '@/hooks/useNavChip';
 import { PlusIcon } from '../icons/PlusIcon';
+import { useNavChip } from '@/hooks/useNavChip';
 import { useState } from 'react';
 
 export default function NavBar() {
-    const [navItems, setNavItems] = useState<NewNavChip[]>(navChipsConfig);
+    const [navItems, setNavItems] = useState<NavChipConfig[]>(navChipsConfig);
 
     const navChips = useNavChip(navItems);
 
@@ -20,7 +21,7 @@ export default function NavBar() {
                 type: 'file',
                 label: 'New Page',
                 variant: 'new',
-            } as NewNavChip);
+            } as NavChipConfig);
             return updatedNavItemConfig;
         });
     };

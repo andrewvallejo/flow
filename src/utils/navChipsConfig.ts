@@ -1,6 +1,6 @@
-import { NewNavChip } from '@/hooks/useNavChip';
+import { NavChipConfig } from '@/types/navChip';
 
-export const navChipsConfig: NewNavChip[] = [
+export const navChipsConfig: NavChipConfig[] = [
     { icon: 'info', label: 'Info', variant: 'secondary', isActive: true },
     { icon: 'file', label: 'Details', isActive: false },
     { icon: 'file', label: 'Other', isActive: false },
