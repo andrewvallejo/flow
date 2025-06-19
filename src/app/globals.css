@@ -32,6 +32,7 @@ body {
     background: var(--color-background-primary);
     color: var(--color-text-default);
     font-weight: 500;
+    overflow: hidden;
     font-family: 'Inter', sans-serif;
     font-size: text-sm;
 }
