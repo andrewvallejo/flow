@@ -13,6 +13,8 @@ interface NavChipProps {
     label?: string;
     /** Text label displayed on the chip */
     variant?: 'primary' | 'secondary';
+    /** A callback handler for creating a new chip */
+    onClick?: (position: number) => void;
     /** Content to be rendered inside the chip */
     children: React.ReactNode;
 }
@@ -21,6 +23,7 @@ export default function NavChip({
     chipId = '',
     label = '',
     variant = 'primary',
+    onClick,
     children,
 }: NavChipProps) {
     const [isSelected, setIsSelected] = useState(false);
@@ -34,6 +37,7 @@ export default function NavChip({
     const isActive = (activeChip ?? '1') === chipId;
 
     const handleChipClick = () => {
+        onClick?.(Number(chipId));
         const params = new URLSearchParams(searchParams.toString());
         params.set('chip', chipId);
         router.push(`?${params.toString()}`);
@@ -54,7 +58,7 @@ export default function NavChip({
             type="button"
             tabIndex={0}
             onClick={handleChipClick}
-            className={`relative z-10 flex min-h-6 cursor-pointer flex-wrap content-start items-center justify-stretch rounded-lg border border-[var(--color-border)] ${variant === 'primary' ? 'bg-[var(--color-button-primary)]' : 'bg-[var(--color-button-secondary)]'} px-[0.25rem] py-[.4rem] transition-all duration-100 ease-in focus:shadow-[var(--shadow-focus)] focus:ring-[var(--color-icon-flag)] focus:outline-[.5px] ${
+            className={`relative z-10 flex flex-none cursor-pointer flex-wrap content-start items-center justify-stretch rounded-lg border border-[var(--color-border)] ${variant === 'primary' ? 'bg-[var(--color-button-primary)]' : 'bg-[var(--color-button-secondary)]'} px-[0.25rem] py-[.4rem] transition-all duration-100 ease-in focus:shadow-[var(--shadow-focus)] focus:ring-[var(--color-icon-flag)] focus:outline-[.5px] ${
                 isActive
                     ? 'border-none bg-[var(--color-button-secondary)] shadow-[var(--shadow-active)]'
                     : 'text-[var(--color-text-inactive)] hover:bg-[var(--color-button-hover)]'

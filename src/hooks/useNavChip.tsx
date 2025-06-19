@@ -31,20 +31,17 @@ export const useNavChip = (chips: NewNavChip[]): NewNavChip[] => {
     return chips.flatMap(({ icon, isActive, variant, label }, index) => {
         const iconKey = iconNames[icon as keyof IconMap];
         const IconComponent = Icons[iconKey] ?? Icons['File'];
-        const isLastChip = index === chips.length - 1;
         const isActiveChip = Number(activeChip) === index + 1;
-        const chipColor =
-            isActiveChip && !isLastChip ? 'var(--color-icon-active)' : '';
+        const chipColor = isActiveChip ? 'var(--color-icon-active)' : '';
 
         const navChip: NewNavChip = {
             chipId: (index + 1).toString(),
             label,
-            // TODO: Change this to do isLastChip instead of variant
-            variant: isLastChip ? 'secondary' : 'primary',
+            variant: 'primary',
             isActive: isActiveChip,
             component: <IconComponent color={chipColor} />,
         };
 
-        return isLastChip ? [navChip] : [navChip, { variant: 'new' }];
+        return [navChip, { variant: 'new' }];
     });
 };
