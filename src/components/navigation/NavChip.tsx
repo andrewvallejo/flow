@@ -34,7 +34,7 @@ export default function NavChip({
         router.push(`?${params.toString()}`);
     };
 
-    const toggleMenu = (e: React.MouseEvent) => {
+    const toggleMenu = () => {
         setIsSelected((prev) => !prev);
     };
 
