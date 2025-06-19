@@ -10,9 +10,10 @@ export default function NavBar() {
     const navChips = useNavChip(navItems);
 
     return (
-        <nav className="flex h-20 w-full bg-[var(--color-navbar-background)] px-4">
-            <div className="relative flex w-fit items-center">
+        <nav className="flex h-20 w-full bg-[var(--color-navbar-background)]">
+            <div className="relative flex items-center px-4">
                 <DashedDivider />
+
                 {navChips.map((item, index) =>
                     !['primary', 'secondary'].includes(item?.variant || '') ? (
                         <NavNewPage key={index} />

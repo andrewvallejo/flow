@@ -24,6 +24,7 @@ export default function NavChip({
     children,
 }: NavChipProps) {
     const [isSelected, setIsSelected] = useState(false);
+
     const [menuFocused, setMenuFocused] = useState(false);
 
     const searchParams = useSearchParams();
@@ -53,7 +54,11 @@ export default function NavChip({
             type="button"
             tabIndex={0}
             onClick={handleChipClick}
-            className={`relative z-10 flex cursor-pointer items-center rounded-lg border border-[var(--color-border)] ${variant === 'primary' ? 'bg-[var(--color-button-primary)]' : 'bg-[var(--color-button-secondary)]'} px-[0.25rem] py-[.4rem] transition-all duration-200 ease-in-out focus:shadow-[var(--shadow-focus)] focus:ring-[var(--color-icon-flag)] focus:outline-[.5px] ${isActive ? 'border-none bg-[var(--color-button-secondary)] shadow-[var(--shadow-active)]' : 'text-[var(--color-text-inactive)] hover:bg-[var(--color-button-hover)]'}`}
+            className={`relative z-10 flex min-h-6 cursor-pointer flex-wrap content-start items-center justify-stretch rounded-lg border border-[var(--color-border)] ${variant === 'primary' ? 'bg-[var(--color-button-primary)]' : 'bg-[var(--color-button-secondary)]'} px-[0.25rem] py-[.4rem] transition-all duration-100 ease-in focus:shadow-[var(--shadow-focus)] focus:ring-[var(--color-icon-flag)] focus:outline-[.5px] ${
+                isActive
+                    ? 'border-none bg-[var(--color-button-secondary)] shadow-[var(--shadow-active)]'
+                    : 'text-[var(--color-text-inactive)] hover:bg-[var(--color-button-hover)]'
+            } `}
         >
             <IconLabel label={label}>{children}</IconLabel>
             {isActive && variant !== 'secondary' && (
@@ -68,12 +73,14 @@ export default function NavChip({
                     }}
                     tabIndex={0}
                 >
-                    <span className={`focus:bg -red-500`}>
+                    <span>
                         <MenuIcon
                             color={
-                                menuFocused
-                                    ? 'var(--color-chip-focus)'
-                                    : undefined
+                                isSelected
+                                    ? 'var(--color-icon-flag)'
+                                    : menuFocused
+                                      ? 'var(--color-chip-focus)'
+                                      : undefined
                             }
                         />
                     </span>
