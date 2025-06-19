@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div>
       <NavBar />
-      <main></main>
+      <main className="bg-[var(--color-main-background)] h-full w-full"></main>
     </div>
   );
 }
