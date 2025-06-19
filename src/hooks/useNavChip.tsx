@@ -5,16 +5,17 @@ import { Icons } from '@/components/icons';
 import { IconType } from '@/types/icon';
 
 export interface NewNavChip {
-  /** The text displayed on the nav chip **/
-  label?: string;
-  /** The icon component suffix to render alongside the label */
-  icon?: IconType;
-  /** The background style of the chip. Use 'new' to create a new page "+" button  */
-  variant?: 'primary' | 'secondary' | 'new';
-  /** Indicates whether the chip is active */
-  isActive?: boolean;
-  /** The icon component to render  */
-  component?: React.ReactNode;
+    chipId?: string;
+    /** The text displayed on the nav chip **/
+    label?: string;
+    /** The icon component suffix to render alongside the label */
+    icon?: IconType;
+    /** The background style of the chip. Use 'new' to create a new page "+" button  */
+    variant?: 'primary' | 'secondary' | 'new';
+    /** Indicates whether the chip is active */
+    isActive?: boolean;
+    /** The icon component to render  */
+    component?: React.ReactNode;
 }
 
 /**
@@ -22,19 +23,20 @@ export interface NewNavChip {
  * A new page "+" button chip (with variant 'new') is inserted between each chip
  * */
 export const useNavChip = (chips: NewNavChip[]): NewNavChip[] => {
-  return chips.flatMap(({ icon, isActive, variant, label }, index) => {
-    const iconKey = iconNames[icon as keyof IconMap];
-    const IconComponent = Icons[iconKey] ?? Icons['File'];
-    const chipColor = isActive ? 'var(--color-icon-active)' : '';
-    const isLastChip = index === chips.length - 1;
+    return chips.flatMap(({ icon, isActive, variant, label }, index) => {
+        const iconKey = iconNames[icon as keyof IconMap];
+        const IconComponent = Icons[iconKey] ?? Icons['File'];
+        const chipColor = isActive ? 'var(--color-icon-active)' : '';
+        const isLastChip = index === chips.length - 1;
 
-    const navChip: NewNavChip = {
-      label,
-      variant: variant ?? 'primary',
-      isActive,
-      component: <IconComponent color={chipColor} />,
-    };
+        const navChip: NewNavChip = {
+            chipId: (index + 1).toString(),
+            label,
+            variant: variant ?? 'primary',
+            isActive,
+            component: <IconComponent color={chipColor} />,
+        };
 
-    return isLastChip ? [navChip] : [navChip, { variant: 'new' }];
-  });
+        return isLastChip ? [navChip] : [navChip, { variant: 'new' }];
+    });
 };

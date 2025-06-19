@@ -1,34 +1,72 @@
+'use client';
+
 import IconLabel from '@/components/IconLabel';
+import { MenuIcon } from '../icons/MenuIcon';
+import { SettingsMenu } from '../settings/SettingsMenu';
+import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface NavChipProps {
-  label?: string;
-  isActive?: boolean;
-  variant?: 'primary' | 'secondary' | 'new';
-  children: React.ReactNode;
-  onClick?: () => void;
+    /** Unique identifier for the chip */
+    chipId?: string;
+    /** Text label displayed on the chip */
+    label?: string;
+    /** Content to be rendered inside the chip */
+    children: React.ReactNode;
 }
 
 export default function NavChip({
-  label = '',
-  isActive = false,
-  variant = 'primary',
-  children,
-  onClick,
+    chipId = '',
+    label = '',
+    children,
 }: NavChipProps) {
-  const bg =
-    variant === 'secondary'
-      ? 'bg-[var(--color-button-secondary)]'
-      : 'bg-[var(--color-button-primary)]';
+    const searchParams = useSearchParams();
+    const router = useRouter();
 
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`flex items-center gap-x-[.25rem] rounded-lg px-[0.25rem] py-[.4rem] z-10 border border-[var(--color-button-border)] ${bg}`}
-    >
-      <IconLabel label={label} isActive={isActive}>
-        {children}
-      </IconLabel>
-    </button>
-  );
+    const activeChip = searchParams.get('chip');
+    const isActive = (activeChip ?? '1') === chipId;
+
+    const [isSelected, setIsSelected] = useState(false);
+
+    const handleChipClick = () => {
+        const params = new URLSearchParams(searchParams.toString());
+        params.set('chip', chipId);
+        router.push(`?${params.toString()}`);
+    };
+
+    const toggleMenu = () => {
+        setIsSelected((prev) => !prev);
+    };
+
+    useEffect(() => {
+        if (!isActive) {
+            setIsSelected(false);
+        }
+    }, [isActive]);
+
+    return (
+        <button
+            type="button"
+            onClick={handleChipClick}
+            className={`group relative z-10 flex cursor-pointer items-center rounded-lg border border-[var(--color-border)] px-[0.25rem] py-[.4rem] transition-all duration-200 ease-in-out focus:shadow-[var(--shadow-focus)] focus:ring-2 focus:ring-[rgba(47,114,226,0.25)] focus:outline-none ${isActive ? 'border-[var(--color-icon-active)] bg-white shadow-[var(--shadow-active)]' : 'bg-[var(--color-button-primary)] hover:bg-[var(--color-button-hover)]'} `}
+        >
+            <IconLabel label={label}>{children}</IconLabel>
+            {isSelected && <SettingsMenu />}
+            {isActive && (
+                <span
+                    role="button"
+                    tabIndex={0}
+                    onClick={toggleMenu}
+                    className="flex"
+                    onKeyPress={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') toggleMenu();
+                    }}
+                >
+                    <span className="z-10 ml-1 opacity-0 transition-opacity duration-100 ease-in-out group-hover:opacity-100">
+                        <MenuIcon />
+                    </span>
+                </span>
+            )}
+        </button>
+    );
 }

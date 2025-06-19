@@ -1,5 +1,5 @@
 export default function DashedDivider() {
-  return (
-    <div className="absolute left-0 right-0 top-1/2 border-t border-dashed border-[var(--color-button-border)] z-0" />
-  );
+    return (
+        <div className="absolute top-1/2 right-0 left-0 z-0 border-t border-dashed border-[var(--color-border)]" />
+    )
 }
