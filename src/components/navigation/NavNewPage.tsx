@@ -31,7 +31,7 @@ export default function NavNewPage({ position, onClick }: NavNewPageProps) {
             onMouseEnter={() => setShouldReveal(true)}
             onMouseLeave={() => setShouldReveal(false)}
             className={`flex h-8 items-center justify-center transition-all duration-300 ease-in-out ${
-                shouldReveal ? 'w-18' : 'w-6'
+                shouldReveal ? 'w-18' : 'w-8'
             }`}
         >
             <button

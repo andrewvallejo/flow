@@ -2,7 +2,7 @@
 
 import IconLabel from '@/components/IconLabel';
 import { DragIcon } from '../icons/DragIcon';
-import { SettingsMenu } from '../settings/SettingsMenu';
+import { SettingsMenu } from '../SettingsMenu';
 import { useEffect, useRef, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -35,7 +35,7 @@ export default function NavChip({
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
 
-    const chipRef = useRef<HTMLButtonElement>(null);
+    const settingsRef = useRef<HTMLDivElement>(null);
 
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -50,21 +50,20 @@ export default function NavChip({
             params.set('chip', chipId);
             router.push(`?${params.toString()}`);
         } else {
-            setIsSettingsOpen((prev) => !prev); // toggle settings if already active
+            setIsSettingsOpen((prev) => !prev);
         }
     };
 
     useEffect(() => {
-        // close settings if chip loses active status
-        if (!isActive) {
+        if (!isActive || isDragging) {
             setIsSettingsOpen(false);
         }
-    }, [isActive]);
+    }, [isActive, isDragging]);
 
-    // Optional: click outside to close menu
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
-            if (!chipRef.current?.contains(e.target as Node)) {
+            const target = e.target as Node;
+            if (!settingsRef.current?.contains(target)) {
                 setIsSettingsOpen(false);
             }
         };
@@ -77,46 +76,55 @@ export default function NavChip({
     }, [isSettingsOpen]);
 
     return (
-        <button
-            ref={chipRef}
-            type="button"
-            onClick={handleChipClick}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className={`relative z-10 flex flex-none cursor-pointer flex-wrap content-start items-center justify-stretch rounded-lg border border-[var(--color-border)] ${
-                variant === 'primary'
-                    ? 'bg-[var(--color-button-primary)]'
-                    : 'bg-[var(--color-button-secondary)]'
-            } px-[0.25rem] py-[.4rem] transition-all duration-100 ease-in focus:shadow-[var(--shadow-focus)] focus:ring-[var(--color-icon-flag)] focus:outline-[.5px] ${
-                isActive
-                    ? 'border-none bg-[var(--color-button-secondary)] shadow-[var(--shadow-active)]'
-                    : 'text-[var(--color-text-inactive)] hover:bg-[var(--color-button-hover)]'
-            }`}
-        >
-            <IconLabel label={label}>{children}</IconLabel>
+        <div className="relative z-10">
+            <button
+                type="button"
+                onClick={handleChipClick}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                className={`flex w-full cursor-pointer items-center justify-stretch rounded-lg border border-[var(--color-border)] ${
+                    variant === 'primary'
+                        ? 'bg-[var(--color-button-primary)]'
+                        : 'bg-[var(--color-button-secondary)]'
+                } px-[0.25rem] py-[.4rem] transition-all duration-100 ease-in focus:shadow-[var(--shadow-focus)] focus:ring-[var(--color-icon-flag)] focus:outline-[.5px] ${
+                    isActive
+                        ? 'border-none bg-[var(--color-button-secondary)] shadow-[var(--shadow-active)]'
+                        : 'text-[var(--color-text-inactive)] hover:bg-[var(--color-button-hover)]'
+                }`}
+            >
+                <IconLabel label={label} variant={variant}>
+                    {children}
+                </IconLabel>
 
-            {isActive && variant !== 'secondary' && (
-                <span
-                    {...dragListeners}
-                    className="ml-1 cursor-grab focus:outline-none"
-                    role="button"
-                    tabIndex={-1}
+                {isActive && variant !== 'secondary' && (
+                    <span
+                        {...dragListeners}
+                        className="ml-1 cursor-grab focus:outline-none"
+                        role="button"
+                        tabIndex={-1}
+                    >
+                        <DragIcon
+                            color={
+                                isSettingsOpen
+                                    ? 'var(--color-icon-flag)'
+                                    : isHovered
+                                      ? 'var(--color-chip-focus)'
+                                      : isDragging
+                                        ? 'var(--color-icon-active)'
+                                        : ''
+                            }
+                        />
+                    </span>
+                )}
+            </button>
+            {isSettingsOpen && variant !== 'secondary' && (
+                <div
+                    ref={settingsRef}
+                    className="absolute top-full left-0 z-20"
                 >
-                    <DragIcon
-                        color={
-                            isSettingsOpen
-                                ? 'var(--color-icon-flag)'
-                                : isHovered
-                                  ? 'var(--color-chip-focus)'
-                                  : isDragging
-                                    ? 'var(--color-icon-active)'
-                                    : ''
-                        }
-                    />
-                </span>
+                    <SettingsMenu />
+                </div>
             )}
-
-            {isSettingsOpen && <SettingsMenu />}
-        </button>
+        </div>
     );
 }
