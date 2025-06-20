@@ -79,6 +79,11 @@ pnpm dev
 
 ## Project Info
 
-Flow was created as part of a take-home assessment.
-It demonstrates interactive UI patterns without backend integration or persistent data.
-<sup>All functionality is handled client-side using in-memory state only, meaning changes are lost on page refresh.</sup>
+<div align="center">
+
+Flow was created as part of a take-home assessment. The goal was to build a dynamic task bar where users can create pages in multiple ways and reorder them via drag and drop. Functionality of the settings was not a requirement.
+
+<sup>It demonstrates interactive UI patterns without backend integration. All functionality is handled client-side using in-memory state, so changes are lost on page refresh.</sup>
+
+</div>
+
