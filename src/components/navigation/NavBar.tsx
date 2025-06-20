@@ -113,7 +113,6 @@ export default function NavBar() {
                         })}
                     </SortableContext>
                 </DndContext>
-
                 <NavChip
                     onClick={updateNavItems}
                     chipId={(navChips.length / 2 + 1).toString()}

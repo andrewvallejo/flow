@@ -1,9 +1,9 @@
-import IconLabel from '../IconLabel';
-import { CopyIcon } from '../icons/CopyIcon';
-import { DeleteIcon } from '../icons/DeleteIcon';
-import { DuplicateIcon } from '../icons/DuplicateIcon';
-import { FlagIcon } from '../icons/FlagIcon';
-import { RenameIcon } from '../icons/RenameIcon';
+import IconLabel from './IconLabel';
+import { CopyIcon } from './icons/CopyIcon';
+import { DeleteIcon } from './icons/DeleteIcon';
+import { DuplicateIcon } from './icons/DuplicateIcon';
+import { FlagIcon } from './icons/FlagIcon';
+import { RenameIcon } from './icons/RenameIcon';
 
 export function SettingsMenu() {
     return (

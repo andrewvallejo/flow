@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { CSS } from '@dnd-kit/utilities';
 import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 import { useSortable } from '@dnd-kit/sortable';
@@ -32,23 +32,46 @@ export default function SortableChipWrapper({
         },
     });
 
+    const nodeRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const node = nodeRef.current;
+        if (!node) return;
+
+        if (isDragging) {
+            const { width, height } = node.getBoundingClientRect();
+            node.style.width = `${width}px`;
+            node.style.height = `${height}px`;
+        } else {
+            node.style.removeProperty('width');
+            node.style.removeProperty('height');
+        }
+    }, [isDragging]);
+
     return (
         <div
-            ref={setNodeRef}
+            ref={(el) => {
+                nodeRef.current = el;
+                setNodeRef(el);
+            }}
             style={{
                 transform: CSS.Transform.toString(transform),
                 transition,
                 zIndex: isDragging ? 50 : 'auto',
             }}
             {...attributes}
-            className={isDragging ? 'pointer-events-none' : ''}
+            className={`inline-flex items-center justify-center ${
+                isDragging ? 'pointer-events-none' : ''
+            }`}
             aria-describedby="DndDescribedBy-0"
             tabIndex={-1}
         >
-            {React.cloneElement(children, {
-                dragListeners: listeners,
-                isDragging,
-            })}
+            <div className="h-full min-w-[6.5rem]">
+                {React.cloneElement(children, {
+                    dragListeners: listeners,
+                    isDragging,
+                })}
+            </div>
         </div>
     );
 }

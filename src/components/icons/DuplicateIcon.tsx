@@ -1,5 +1,5 @@
-import { iconColors } from '@/utils/iconColors'
-import { IconProps } from '@/types/icon'
+import { iconColors } from '@/utils/iconColors';
+import { IconProps } from '@/types/icon';
 
 export function DuplicateIcon({ width = 17, height = 16, color }: IconProps) {
     return (
@@ -18,5 +18,5 @@ export function DuplicateIcon({ width = 17, height = 16, color }: IconProps) {
                 strokeLinejoin="round"
             />
         </svg>
-    )
+    );
 }
