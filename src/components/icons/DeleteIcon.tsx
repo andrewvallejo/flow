@@ -1,5 +1,5 @@
-import { iconColors } from '@/utils/iconColors'
-import { IconProps } from '@/types/icon'
+import { iconColors } from '@/utils/iconColors';
+import { IconProps } from '@/types/icon';
 
 export function DeleteIcon({ width = 17, height = 17, color }: IconProps) {
     return (
@@ -15,5 +15,5 @@ export function DeleteIcon({ width = 17, height = 17, color }: IconProps) {
                 fill={color || iconColors.delete}
             />
         </svg>
-    )
+    );
 }
