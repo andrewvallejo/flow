@@ -22,10 +22,26 @@
 
 ## Features
 
-- Create new pages instantly at any position with a single click
-- Reorder pages via smooth drag-and-drop interaction
-- Highlight the active page for clear navigation context
-- Per-page context menu with rename, duplicate, and delete options (UI only)
+- **Add Pages**
+
+    - Use the “Add Page” button to append a new page to the end
+    - Insert a new page between existing ones using the dynamic "+" buttons
+
+- **Drag-and-Drop Reordering**
+
+    - Rearrange pages smoothly with intuitive drag-and-drop interaction
+
+- **Active Page Highlighting**
+
+    - The current page is visually emphasized for clear navigation context
+
+- **Context Menu (UI Only)**
+
+    - Each page includes a menu with options to **Rename**, **Duplicate**, **Copy**, or **Delete**
+    - These actions are currently UI-only (no data persistence)
+
+- **Keyboard Navigation**
+    - Navigate the taskbar using **Tab** and **Enter** for accessibility and speed
 
 ---
 
@@ -65,4 +81,4 @@ pnpm dev
 
 Flow was created as part of a take-home assessment.
 It demonstrates interactive UI patterns without backend integration or persistent data.
-<sup>All functionality is handled client-side using in-memory state only.</sup>
+<sup>All functionality is handled client-side using in-memory state only, meaning changes are lost on page refresh.</sup>
