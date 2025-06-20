@@ -10,8 +10,8 @@ export default function Home() {
                     draggable="false"
                     src="/flow-hollow.svg"
                     alt="Flow Logo"
-                    width={100}
-                    height={100}
+                    width={156}
+                    height={156}
                 />
                 <h1 className="text-[3rem] font-thin text-white opacity-40">
                     Flow
