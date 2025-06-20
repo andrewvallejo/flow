@@ -36,6 +36,7 @@ export default function NavChip({
     const [isHovered, setIsHovered] = useState(false);
 
     const settingsRef = useRef<HTMLDivElement>(null);
+    const chipRef = useRef<HTMLDivElement>(null);
 
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -63,7 +64,11 @@ export default function NavChip({
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
             const target = e.target as Node;
-            if (!settingsRef.current?.contains(target)) {
+            if (
+                isSettingsOpen &&
+                !settingsRef.current?.contains(target) &&
+                !chipRef.current?.contains(target)
+            ) {
                 setIsSettingsOpen(false);
             }
         };
@@ -92,10 +97,11 @@ export default function NavChip({
                         : 'text-[var(--color-text-inactive)] hover:bg-[var(--color-button-hover)]'
                 }`}
             >
-                <IconLabel label={label} variant={variant}>
-                    {children}
-                </IconLabel>
-
+                <div ref={chipRef}>
+                    <IconLabel label={label} variant={variant}>
+                        {children}
+                    </IconLabel>
+                </div>
                 {isActive && variant !== 'secondary' && (
                     <span
                         {...dragListeners}
